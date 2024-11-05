@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../constants/colors.dart';
-import '../../constants/icons.dart';
+import '../../core/configs/assets/app_icons.dart';
+import '../../core/configs/theme/app_colors.dart';
 
-import '../../widgets/vertical_spacer.dart';
-import '../../widgets/horizontal_spacer.dart';
-import '../../widgets/button.dart';
-import '../../widgets/text_button.dart';
-import '../../widgets/icon_button.dart';
+import '../../common/widgets/vertical_spacer.dart';
+import '../../common/widgets/horizontal_spacer.dart';
+import '../../common/widgets/button.dart';
+import '../../common/widgets/text_button.dart';
+import '../../common/widgets/icon_button.dart';
 
 import '../../onboarding/widgets/onboarding_tile.dart';
 import '../../onboarding/models/onboarding_item.dart';
@@ -104,7 +104,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       width: double.infinity,
       alignment: Alignment.center,
       boxDecoration: const BoxDecoration(
-        color: AppColor.black,
+        color: AppColors.black,
         borderRadius: BorderRadius.all(
           Radius.circular(4),
         ),
@@ -114,7 +114,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         _activePage == 2 ? 'Selesai' : 'Berikutnya',
         style: const TextStyle(
           fontFamily: 'SF Pro Display',
-          color: AppColor.white,
+          color: AppColors.white,
           fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
@@ -125,11 +125,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
   AppIconButton _buildBackButton() {
     return AppIconButton(
       onTap: _decrement,
-      icon: AppIcon.arrowLeft,
+      icon: AppIcons.arrowLeft,
       height: 48,
       padding: const EdgeInsets.symmetric(horizontal: 8),
       colorFilter: const ColorFilter.mode(
-        AppColor.black,
+        AppColors.black,
         BlendMode.srcIn,
       ),
     );
@@ -149,7 +149,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         textStyle: const TextStyle(
           fontFamily: 'SF Pro Display',
           fontSize: 16,
-          color: AppColor.neutral500,
+          color: AppColors.neutral500,
           decoration: TextDecoration.underline,
         ),
       ),

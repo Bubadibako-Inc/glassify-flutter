@@ -9,6 +9,7 @@ class AppButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final AlignmentGeometry? alignment;
+  final bool? enabled;
 
   const AppButton({
     super.key,
@@ -20,12 +21,14 @@ class AppButton extends StatelessWidget {
     this.padding,
     this.margin,
     this.alignment,
+    this.enabled,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      enableFeedback: enabled,
       child: Container(
         padding: padding,
         margin: margin,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:glassify_flutter/constants/colors.dart';
-import 'package:glassify_flutter/onboarding/models/onboarding_item.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../core/configs/theme/app_colors.dart';
+
+import '../models/onboarding_item.dart';
 
 class OnboardingTile extends StatelessWidget {
   const OnboardingTile({
@@ -24,7 +26,7 @@ class OnboardingTile extends StatelessWidget {
         Text(
           item.title,
           style: const TextStyle(
-            color: AppColor.black,
+            color: AppColors.black,
             fontFamily: 'SF Pro Display',
             fontWeight: FontWeight.w700,
             fontSize: 22,
@@ -35,7 +37,7 @@ class OnboardingTile extends StatelessWidget {
           item.description,
           style: const TextStyle(
             fontFamily: 'SF Pro Display',
-            color: AppColor.neutral500,
+            color: AppColors.neutral500,
             fontSize: 16,
           ),
           textAlign: TextAlign.center,

@@ -1,7 +1,6 @@
 import 'dart:ui';
 
-// Color Constants
-class AppColor {
+class AppColors {
   static const Color white = Color(0XFFFCFCFC);
   static const Color black = Color(0XFF080808);
 
