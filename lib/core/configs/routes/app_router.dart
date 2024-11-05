@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../configs/routes/app_routes.dart';
 
-import '../../../onboarding/page/onboarding_page.dart';
+import '../../../presentation/onboarding/page/onboarding_page.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(

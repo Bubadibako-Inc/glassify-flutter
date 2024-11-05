@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../core/configs/assets/app_icons.dart';
-import '../../core/configs/theme/app_colors.dart';
+import '../../../core/configs/assets/app_icons.dart';
+import '../../../core/configs/theme/app_colors.dart';
 
-import '../../common/widgets/vertical_spacer.dart';
-import '../../common/widgets/horizontal_spacer.dart';
-import '../../common/widgets/button.dart';
-import '../../common/widgets/text_button.dart';
-import '../../common/widgets/icon_button.dart';
+import '../../../common/widgets/vertical_spacer.dart';
+import '../../../common/widgets/horizontal_spacer.dart';
+import '../../../common/widgets/button.dart';
+import '../../../common/widgets/text_button.dart';
+import '../../../common/widgets/icon_button.dart';
 
-import '../../onboarding/widgets/onboarding_tile.dart';
-import '../../onboarding/models/onboarding_item.dart';
+import '../widgets/onboarding_tile.dart';
+import '../models/onboarding_item.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
