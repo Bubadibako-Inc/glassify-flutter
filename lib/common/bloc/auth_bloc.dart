@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../domain/auth/usecases/is_authenticated.dart';
 import '../../../service_locator.dart';
@@ -9,15 +10,20 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(InitialState()) {
     on<GetToken>((event, emit) async {
-      await Future.delayed(const Duration(seconds: 2));
-
       final isAuthenticated = await sl<IsAuthenticatedUseCase>().call();
 
       if (isAuthenticated != true) {
         return emit(UnauthenticatedState());
       }
 
-      return emit(AuthenticatedState());
+      final SharedPreferences _sharedPrefs =
+          await SharedPreferences.getInstance();
+
+      final String name = _sharedPrefs.getString('name')!;
+      final String email = _sharedPrefs.getString('email')!;
+      final String role = _sharedPrefs.getString('role')!;
+
+      return emit(AuthenticatedState(email: email, name: name, role: role));
     });
   }
 }

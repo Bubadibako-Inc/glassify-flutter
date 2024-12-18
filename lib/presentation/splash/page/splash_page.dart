@@ -19,6 +19,7 @@ class SplashPage extends StatelessWidget {
               if (state is FirstTimeState) {
                 context.go(AppRoutes.onboarding);
               } else if (state is NotFirstTimeState) {
+                // context.go(AppRoutes.home, extra: 0);
                 context.go(AppRoutes.home);
               }
             },

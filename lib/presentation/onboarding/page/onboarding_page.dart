@@ -67,6 +67,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     if (context.mounted) {
       context.go(
         AppRoutes.home,
+        // extra: 0,
       );
     }
   }
@@ -112,7 +113,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   SizedBox _onboarding(BuildContext context) {
     return SizedBox(
-      height: 412,
+      height: 432,
       child: PageView.builder(
         controller: _pageController,
         scrollDirection: Axis.horizontal,

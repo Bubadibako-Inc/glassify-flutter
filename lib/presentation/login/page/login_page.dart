@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:glassify_flutter/data/auth/models/login_req_params.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../common/bloc/auth_bloc.dart';
 import '../../../core/configs/assets/app_images.dart';
 import '../../../core/configs/assets/app_icons.dart';
 import '../../../core/configs/routes/app_routes.dart';
 import '../../../core/configs/theme/app_colors.dart';
-
 import '../../../common/widgets/vertical_spacer.dart';
 import '../../../common/widgets/horizontal_spacer.dart';
 import '../../../common/widgets/button.dart';
 import '../../../common/widgets/text_button.dart';
 import '../../../common/widgets/error_text_field.dart';
 import '../../../common/widgets/message.dart';
+import '../../../data/auth/models/login_req_params.dart';
 
 import '../bloc/login_bloc.dart';
 
@@ -28,8 +26,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
+
+  bool _obscurePassword = true;
 
   @override
   void dispose() {
@@ -63,26 +62,6 @@ class _LoginPageState extends State<LoginPage> {
               );
             }
 
-            if (state is SuccessState) {
-              return const Column(
-                children: [
-                  Message(
-                    color: AppColors.green100,
-                    borderColor: AppColors.green300,
-                    icon: AppIcons.warningCircle,
-                    iconColor: AppColors.green500,
-                    text: 'Berhasil melakukan login!',
-                    style: TextStyle(
-                      color: AppColors.green500,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                    ),
-                  ),
-                  VerticalSpacer(height: 16),
-                ],
-              );
-            }
-
             return const SizedBox.shrink();
           },
         ),
@@ -92,22 +71,15 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => LoginBloc(),
-        ),
-        BlocProvider(
-          create: (_) => AuthBloc()..add(GetToken()),
-        ),
-      ],
-      child: BlocListener<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state is AuthenticatedState) {
-            context.pop();
-          }
-        },
-        child: Scaffold(
+    return BlocProvider(
+      create: (context) => LoginBloc(),
+      child: BlocConsumer<LoginBloc, LoginState>(listener: (context, state) {
+        if (state is SuccessState) {
+          context.pop();
+          context.pop();
+        }
+      }, builder: (context, state) {
+        return Scaffold(
           body: SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24.0),
@@ -122,9 +94,59 @@ class _LoginPageState extends State<LoginPage> {
                   _subtitleText(),
                   const VerticalSpacer(height: 16),
                   _message(),
-                  _emailField(),
+                  TextField(
+                    controller: _emailController,
+                    onChanged: (value) => BlocProvider.of<LoginBloc>(context)
+                        .add(OnEmailChanged(value)),
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(13),
+                        child: SvgPicture.asset(
+                          AppIcons.envelopeOpen,
+                          height: 16,
+                          width: 16,
+                        ),
+                      ),
+                      error: state.emailError.isNotEmpty
+                          ? ErrorTextField(text: state.emailError)
+                          : null,
+                    ),
+                  ),
                   const VerticalSpacer(height: 16),
-                  _passwordField(),
+                  TextField(
+                    controller: _passwordController,
+                    obscureText: _obscurePassword,
+                    onChanged: (value) => BlocProvider.of<LoginBloc>(context)
+                        .add(OnPasswordChanged(value)),
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(13),
+                        child: SvgPicture.asset(
+                          AppIcons.password,
+                          height: 16,
+                          width: 16,
+                        ),
+                      ),
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.all(13),
+                        child: GestureDetector(
+                          onTap: () => setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          }),
+                          child: SvgPicture.asset(
+                            AppIcons.eye,
+                            height: 16,
+                            width: 16,
+                          ),
+                        ),
+                      ),
+                      error: state.passwordError.isNotEmpty
+                          ? ErrorTextField(text: state.passwordError)
+                          : null,
+                    ),
+                  ),
                   const VerticalSpacer(height: 16),
                   _loginButton(),
                   const VerticalSpacer(height: 12),
@@ -133,8 +155,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
@@ -169,51 +191,6 @@ class _LoginPageState extends State<LoginPage> {
         color: AppColors.neutral500,
         fontSize: 16,
       ),
-    );
-  }
-
-  AppTextField _emailField() {
-    return AppTextField(
-      controller: _emailController,
-      prefixIcon: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(13),
-          child: SvgPicture.asset(
-            AppIcons.envelopeOpen,
-            height: 16,
-            width: 16,
-          ),
-        ),
-      ),
-      hintText: 'Email',
-      // error: 'Error ngabs',
-    );
-  }
-
-  AppTextField _passwordField() {
-    return AppTextField(
-      controller: _passwordController,
-      prefixIcon: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(13),
-          child: SvgPicture.asset(
-            AppIcons.password,
-            height: 16,
-            width: 16,
-          ),
-        ),
-      ),
-      suffixIcon: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(13),
-          child: SvgPicture.asset(
-            AppIcons.eye,
-            height: 16,
-            width: 16,
-          ),
-        ),
-      ),
-      hintText: 'Password',
     );
   }
 
@@ -314,41 +291,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
       },
-    );
-  }
-}
-
-class AppTextField extends StatelessWidget {
-  final Widget prefixIcon;
-  final String hintText;
-  final TextEditingController controller;
-  final Widget? suffixIcon;
-  final String? error;
-
-  const AppTextField({
-    super.key,
-    required this.prefixIcon,
-    required this.hintText,
-    required this.controller,
-    this.suffixIcon,
-    this.error,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      obscureText: false,
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: hintText,
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
-        error: error == null
-            ? null
-            : ErrorTextField(
-                text: error!,
-              ),
-      ),
     );
   }
 }

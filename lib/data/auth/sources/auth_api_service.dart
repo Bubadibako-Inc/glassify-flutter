@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:glassify_flutter/data/auth/models/logout_req_params.dart';
 
 import '../../../service_locator.dart';
 import '../../../core/constants/api_url.dart';
@@ -12,7 +11,7 @@ import '../models/register_req_params.dart';
 abstract class AuthApiService {
   Future<Either> login(LoginReqParams params);
   Future<Either> register(RegisterReqParams params);
-  Future<Either> logout(LogoutReqParams params);
+  Future<Either> logout();
 }
 
 class AuthApiServiceImpl extends AuthApiService {
@@ -43,11 +42,10 @@ class AuthApiServiceImpl extends AuthApiService {
   }
 
   @override
-  Future<Either> logout(LogoutReqParams params) async {
+  Future<Either> logout() async {
     try {
       final response = await sl<DioClient>().post(
-        ApiUrl.register,
-        data: params.toMap(),
+        ApiUrl.logout,
       );
       return Right(response.data);
     } on DioException catch (e) {

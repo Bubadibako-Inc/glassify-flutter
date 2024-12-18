@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:glassify_flutter/data/auth/models/register_req_params.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../domain/auth/repositories/auth.dart';
@@ -19,13 +20,16 @@ class AuthRepositoryImpl extends AuthRepository {
         final SharedPreferences sharedPref =
             await SharedPreferences.getInstance();
         sharedPref.setString('token', data['access_token']);
+        sharedPref.setString('name', data['user']['name']);
+        sharedPref.setString('email', data['user']['email']);
+        sharedPref.setString('role', data['user']['role']);
         return Right(data);
       },
     );
   }
 
   @override
-  Future<Either> register(params) async {
+  Future<Either> register(RegisterReqParams params) async {
     final response = await sl<AuthApiService>().register(params);
     return response.fold(
       (error) {
@@ -35,6 +39,25 @@ class AuthRepositoryImpl extends AuthRepository {
         final SharedPreferences sharedPref =
             await SharedPreferences.getInstance();
         sharedPref.setString('token', data['access_token']);
+        sharedPref.setString('name', data['user']['name']);
+        sharedPref.setString('email', data['user']['email']);
+        sharedPref.setString('role', data['user']['role']);
+        return Right(data);
+      },
+    );
+  }
+
+  @override
+  Future<Either> logout() async {
+    final response = await sl<AuthApiService>().logout();
+    return response.fold(
+      (error) {
+        return Left(error);
+      },
+      (data) async {
+        final SharedPreferences sharedPref =
+            await SharedPreferences.getInstance();
+        sharedPref.remove('token');
         return Right(data);
       },
     );

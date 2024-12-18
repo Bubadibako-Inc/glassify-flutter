@@ -38,4 +38,13 @@ class AppIcons {
   static const String fileImage = '${_basePath}file_image$_extension';
   static const String lightning = '${_basePath}lightning$_extension';
   static const String lightningSlash = '${_basePath}lightning_slash$_extension';
+  static const String check = '${_basePath}check$_extension';
+  static const String xCircle = '${_basePath}x_circle$_extension';
+  static const String mapPin = '${_basePath}map_pin$_extension';
+  static const String filter = '${_basePath}filter$_extension';
+  static const String sort = '${_basePath}sort$_extension';
+  static const String send = '${_basePath}send$_extension';
+  static const String checkSquare = '${_basePath}check_square$_extension';
+  static const String checkSquareFilled =
+      '${_basePath}check_square_filled$_extension';
 }

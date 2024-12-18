@@ -6,7 +6,8 @@ import '../../../data/auth/models/register_req_params.dart';
 abstract class AuthRepository {
   Future<Either> login(LoginReqParams params);
   Future<Either> register(RegisterReqParams params);
+  Future<Either> logout();
   Future<bool> isAuthenticated();
   Future<bool> isNewcomer();
-  Future setNewcomer();
+  Future<void> setNewcomer();
 }

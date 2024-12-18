@@ -18,6 +18,7 @@ class ErrorTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SvgPicture.asset(
           AppIcons.warningCircle,
@@ -28,15 +29,17 @@ class ErrorTextField extends StatelessWidget {
             BlendMode.srcIn,
           ),
         ),
-        const HorizontalSpacer(width: 4),
-        Text(
-          text,
-          style: const TextStyle(
-            color: AppColors.red500,
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
+        const HorizontalSpacer(width: 8),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: AppColors.red500,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+            ),
           ),
-        ),
+        )
       ],
     );
   }
