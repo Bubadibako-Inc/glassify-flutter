@@ -71,92 +71,102 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginBloc(),
-      child: BlocConsumer<LoginBloc, LoginState>(listener: (context, state) {
-        if (state is SuccessState) {
-          context.pop();
-          context.pop();
-        }
-      }, builder: (context, state) {
-        return Scaffold(
-          body: SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _image(),
-                  const VerticalSpacer(height: 16),
-                  _titleText(),
-                  const VerticalSpacer(height: 2),
-                  _subtitleText(),
-                  const VerticalSpacer(height: 16),
-                  _message(),
-                  TextField(
-                    controller: _emailController,
-                    onChanged: (value) => BlocProvider.of<LoginBloc>(context)
-                        .add(OnEmailChanged(value)),
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(13),
-                        child: SvgPicture.asset(
-                          AppIcons.envelopeOpen,
-                          height: 16,
-                          width: 16,
-                        ),
-                      ),
-                      error: state.emailError.isNotEmpty
-                          ? ErrorTextField(text: state.emailError)
-                          : null,
-                    ),
-                  ),
-                  const VerticalSpacer(height: 16),
-                  TextField(
-                    controller: _passwordController,
-                    obscureText: _obscurePassword,
-                    onChanged: (value) => BlocProvider.of<LoginBloc>(context)
-                        .add(OnPasswordChanged(value)),
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(13),
-                        child: SvgPicture.asset(
-                          AppIcons.password,
-                          height: 16,
-                          width: 16,
-                        ),
-                      ),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.all(13),
-                        child: GestureDetector(
-                          onTap: () => setState(() {
-                            _obscurePassword = !_obscurePassword;
-                          }),
-                          child: SvgPicture.asset(
-                            AppIcons.eye,
-                            height: 16,
-                            width: 16,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (_, __) {
+        context.go(AppRoutes.home);
+      },
+      child: BlocProvider(
+        create: (context) => LoginBloc(),
+        child: BlocConsumer<LoginBloc, LoginState>(
+          listener: (context, state) {
+            if (state is SuccessState) {
+              context.go(AppRoutes.home);
+            }
+          },
+          builder: (context, state) {
+            return Scaffold(
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _image(),
+                      const VerticalSpacer(height: 16),
+                      _titleText(),
+                      const VerticalSpacer(height: 2),
+                      _subtitleText(),
+                      const VerticalSpacer(height: 16),
+                      _message(),
+                      TextField(
+                        controller: _emailController,
+                        onChanged: (value) =>
+                            BlocProvider.of<LoginBloc>(context)
+                                .add(OnEmailChanged(value)),
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(13),
+                            child: SvgPicture.asset(
+                              AppIcons.envelopeOpen,
+                              height: 16,
+                              width: 16,
+                            ),
                           ),
+                          error: state.emailError.isNotEmpty
+                              ? ErrorTextField(text: state.emailError)
+                              : null,
                         ),
                       ),
-                      error: state.passwordError.isNotEmpty
-                          ? ErrorTextField(text: state.passwordError)
-                          : null,
-                    ),
+                      const VerticalSpacer(height: 16),
+                      TextField(
+                        controller: _passwordController,
+                        obscureText: _obscurePassword,
+                        onChanged: (value) =>
+                            BlocProvider.of<LoginBloc>(context)
+                                .add(OnPasswordChanged(value)),
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(13),
+                            child: SvgPicture.asset(
+                              AppIcons.password,
+                              height: 16,
+                              width: 16,
+                            ),
+                          ),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(13),
+                            child: GestureDetector(
+                              onTap: () => setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              }),
+                              child: SvgPicture.asset(
+                                AppIcons.eye,
+                                height: 16,
+                                width: 16,
+                              ),
+                            ),
+                          ),
+                          error: state.passwordError.isNotEmpty
+                              ? ErrorTextField(text: state.passwordError)
+                              : null,
+                        ),
+                      ),
+                      const VerticalSpacer(height: 16),
+                      _loginButton(),
+                      const VerticalSpacer(height: 12),
+                      _registerText(context),
+                    ],
                   ),
-                  const VerticalSpacer(height: 16),
-                  _loginButton(),
-                  const VerticalSpacer(height: 12),
-                  _registerText(context),
-                ],
+                ),
               ),
-            ),
-          ),
-        );
-      }),
+            );
+          },
+        ),
+      ),
     );
   }
 
@@ -209,7 +219,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           const HorizontalSpacer(width: 4),
           AppTextButton(
-            onTap: () => context.pushReplacement(AppRoutes.register),
+            onTap: () => context.go(AppRoutes.register),
             text: 'Daftar',
             textStyle: const TextStyle(
               fontWeight: FontWeight.w700,

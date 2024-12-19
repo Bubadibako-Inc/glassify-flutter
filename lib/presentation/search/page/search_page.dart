@@ -192,6 +192,7 @@ class ProductHistoryItem extends StatelessWidget {
                 height: 208,
                 width: double.infinity,
                 child: CachedNetworkImage(
+                  fit: BoxFit.cover,
                   imageUrl: image,
                   placeholder: (_, __) {
                     return SvgPicture.asset(AppImages.imagePlaceholder);

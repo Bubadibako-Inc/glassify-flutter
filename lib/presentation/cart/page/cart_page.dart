@@ -11,6 +11,7 @@ import '../../../common/widgets/horizontal_spacer.dart';
 
 import '../../unauthenticated/page/unauthenticated_page.dart';
 
+import '../bloc/cart_bloc.dart';
 import '../widgets/cart_appbar.dart';
 import '../widgets/empty_cart.dart';
 
@@ -22,7 +23,10 @@ class CartPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthBloc()..add(GetToken()),
+          create: (context) => AuthBloc(),
+        ),
+        BlocProvider(
+          create: (context) => CartBloc(),
         ),
       ],
       child: Scaffold(
@@ -31,13 +35,37 @@ class CartPage extends StatelessWidget {
           child: CartAppbar(),
         ),
         body: BlocBuilder<AuthBloc, AuthState>(
+          bloc: AuthBloc()..add(GetToken()),
           builder: (context, state) {
             if (state is AuthenticatedState) {
-              return const SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.0),
-                  child: EmptyCart(),
-                ),
+              return BlocBuilder(
+                bloc: CartBloc()..add(OnGetCartItems()),
+                builder: (context, state) {
+                  if (state is CartLoadedState) {
+                    if (state.items.isNotEmpty) {
+                      ListView.builder(
+                        itemCount: state.items.length,
+                        itemBuilder: (_, index) {
+                          return Text(state.items[index].productId!);
+                        },
+                      );
+                    } else {
+                      return const SafeArea(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24.0),
+                          child: EmptyCart(),
+                        ),
+                      );
+                    }
+                  }
+
+                  if (state is CartFailedState) {
+                    return Center(
+                      child: Text(state.message),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
               );
             }
 

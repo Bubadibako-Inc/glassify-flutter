@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:glassify_flutter/core/configs/assets/app_images.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:equatable/equatable.dart';
 
@@ -13,6 +14,7 @@ class SelfieBloc extends Bloc<SelfieEvent, SelfieState> {
     on<GetPrediction>((event, emit) async {
       late String prediction;
       late List<String> recommendations;
+      late String shapeImage;
 
       final isPredicted = await sl<IsPredictedUseCase>().call();
 
@@ -28,17 +30,18 @@ class SelfieBloc extends Bloc<SelfieEvent, SelfieState> {
           '${prediction[0].toUpperCase()}${prediction.substring(1).toLowerCase()}';
 
       recommendations = _getRecommendations(prediction);
-
-      print('Emitting PredictedState with prediction: $prediction');
+      shapeImage = _getShapeImage(prediction);
 
       return emit(PredictedState(
         prediction: prediction,
         recommendations: recommendations,
+        shapeImage: shapeImage,
       ));
     });
 
     on<UpdatePrediction>((event, emit) async {
       late List<String> recommendations;
+      late String shapeImage;
 
       final SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
@@ -50,11 +53,12 @@ class SelfieBloc extends Bloc<SelfieEvent, SelfieState> {
 
       recommendations = _getRecommendations(event.prediction);
 
-      print('Emitting PredictedState with prediction: ${event.prediction}');
+      shapeImage = _getShapeImage(event.prediction);
 
       return emit(PredictedState(
         prediction: event.prediction,
         recommendations: recommendations,
+        shapeImage: shapeImage,
       ));
     });
   }
@@ -80,5 +84,28 @@ List<String> _getRecommendations(String prediction) {
       return recommendations;
     default:
       return recommendations;
+  }
+}
+
+String _getShapeImage(String prediction) {
+  String shapeImage = '';
+  switch (prediction) {
+    case 'Square':
+      shapeImage = AppImages.square;
+      return shapeImage;
+    case 'Oblong':
+      shapeImage = AppImages.oblong;
+      return shapeImage;
+    case 'Heart':
+      shapeImage = AppImages.heart;
+      return shapeImage;
+    case 'Oval':
+      shapeImage = AppImages.oval;
+      return shapeImage;
+    case 'Round':
+      shapeImage = AppImages.round;
+      return shapeImage;
+    default:
+      return shapeImage;
   }
 }

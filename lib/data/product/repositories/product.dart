@@ -1,9 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:glassify_flutter/common/helper/mapper/product_mapper.dart';
-import 'package:glassify_flutter/data/product/models/product.dart';
-import 'package:glassify_flutter/data/product/sources/product_api_service.dart';
-import 'package:glassify_flutter/domain/product/repositories/product.dart';
+
+import '../../../common/helper/mapper/product_mapper.dart';
+import '../../../domain/product/repositories/product.dart';
 import '../../../service_locator.dart';
+
+import '../models/product.dart';
+import '../sources/product_api_service.dart';
 
 class ProductRepositoryImpl extends ProductRepository {
   @override

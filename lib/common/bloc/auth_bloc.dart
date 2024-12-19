@@ -21,9 +21,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       final String name = _sharedPrefs.getString('name')!;
       final String email = _sharedPrefs.getString('email')!;
-      final String role = _sharedPrefs.getString('role')!;
+      final String photoProfile = _sharedPrefs.getString('photo_profile')!;
 
-      return emit(AuthenticatedState(email: email, name: name, role: role));
+      return emit(AuthenticatedState(
+        email: email,
+        name: name,
+        photoProfile: photoProfile,
+      ));
     });
   }
 }

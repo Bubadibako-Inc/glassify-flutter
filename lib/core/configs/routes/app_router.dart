@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:glassify_flutter/presentation/transaction/pages/transaction_page.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../presentation/about/pages/about_page.dart';
@@ -13,7 +14,6 @@ import '../../../presentation/camera/page/camera_page.dart';
 import '../../../presentation/camera_result/page/camera_result_page.dart';
 import '../../../presentation/product/page/product_page.dart';
 import '../../../presentation/splash/page/splash_page.dart';
-import '../../../presentation/customer_service/page/customer_service_page.dart';
 import '../../../presentation/payment/page/payment_page.dart';
 import '../../../presentation/payment_failed/page/payment_failed_page.dart';
 import '../../../presentation/payment_result/page/payment_result_page.dart';
@@ -77,18 +77,12 @@ class AppRouter {
         },
       ),
       GoRoute(
-        path: AppRoutes.home,
-        builder: (BuildContext context, GoRouterState state) {
-          return const HomePage();
-        },
-      ),
-      GoRoute(
         path: AppRoutes.menu,
         pageBuilder: (BuildContext context, GoRouterState state) {
           return CustomTransitionPage(
             key: state.pageKey,
             transitionDuration: Durations.medium1,
-            child: MenuPage(),
+            child: const MenuPage(),
             transitionsBuilder: (BuildContext context,
                 Animation<double> animation, _, Widget child) {
               return SlideTransition(
@@ -199,10 +193,11 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.payment,
         pageBuilder: (BuildContext context, GoRouterState state) {
+          final String id = state.extra as String;
           return CustomTransitionPage(
             key: state.pageKey,
             transitionDuration: Durations.medium1,
-            child: const PaymentPage(),
+            child: PaymentPage(id: id),
             transitionsBuilder: (BuildContext context,
                 Animation<double> animation, _, Widget child) {
               return SlideTransition(
@@ -221,10 +216,33 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.paymentResult,
         pageBuilder: (BuildContext context, GoRouterState state) {
+          final String id = state.extra as String;
           return CustomTransitionPage(
             key: state.pageKey,
             transitionDuration: Durations.medium1,
-            child: const PaymentResultPage(),
+            child: PaymentResultPage(id: id),
+            transitionsBuilder: (BuildContext context,
+                Animation<double> animation, _, Widget child) {
+              return SlideTransition(
+                position: animation.drive(
+                  Tween<Offset>(
+                    begin: const Offset(0.75, 0),
+                    end: Offset.zero,
+                  ),
+                ),
+                child: child,
+              );
+            },
+          );
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.transaction,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            transitionDuration: Durations.medium1,
+            child: const TransactionPage(),
             transitionsBuilder: (BuildContext context,
                 Animation<double> animation, _, Widget child) {
               return SlideTransition(
@@ -263,33 +281,20 @@ class AppRouter {
         },
       ),
       GoRoute(
-        path: AppRoutes.customerService,
-        pageBuilder: (BuildContext context, GoRouterState state) {
-          return CustomTransitionPage(
-            key: state.pageKey,
-            transitionDuration: Durations.medium1,
-            child: const CustomerServicePage(),
-            transitionsBuilder: (BuildContext context,
-                Animation<double> animation, _, Widget child) {
-              return SlideTransition(
-                position: animation.drive(
-                  Tween<Offset>(
-                    begin: const Offset(0.75, 0),
-                    end: Offset.zero,
-                  ),
-                ),
-                child: child,
-              );
-            },
-          );
-        },
-      ),
-      GoRoute(
         path: AppRoutes.search,
         pageBuilder: (BuildContext context, GoRouterState state) {
           return NoTransitionPage(
             key: state.pageKey,
             child: const SearchPage(),
+          );
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.home,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return NoTransitionPage(
+            key: state.pageKey,
+            child: const HomePage(),
           );
         },
       ),

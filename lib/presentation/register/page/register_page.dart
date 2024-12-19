@@ -36,7 +36,7 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _obscureConfirmPassword = true;
 
   void _navigateToLogin() {
-    context.pushReplacement(AppRoutes.login);
+    context.go(AppRoutes.login);
   }
 
   @override
@@ -50,154 +50,159 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RegisterBloc(),
-      child: BlocConsumer<RegisterBloc, RegisterState>(
-        listener: (context, state) {
-          if (state is SuccessState) {
-            context.pop();
-            context.pop();
-          }
-        },
-        builder: (context, state) {
-          return Scaffold(
-            body: SafeArea(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _registerImage(),
-                    const VerticalSpacer(height: 16),
-                    _titleText(),
-                    const VerticalSpacer(height: 2),
-                    _subtitleText(),
-                    const VerticalSpacer(height: 16),
-                    _message(),
-                    TextField(
-                      controller: _nameController,
-                      onChanged: (value) =>
-                          BlocProvider.of<RegisterBloc>(context)
-                              .add(OnNameChanged(value)),
-                      decoration: InputDecoration(
-                        labelText: 'Nama',
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(13),
-                          child: SvgPicture.asset(
-                            AppIcons.user,
-                            height: 16,
-                            width: 16,
-                          ),
-                        ),
-                        error: state.nameError.isNotEmpty
-                            ? ErrorTextField(text: state.nameError)
-                            : null,
-                      ),
-                    ),
-                    const VerticalSpacer(height: 16),
-                    TextField(
-                      controller: _emailController,
-                      onChanged: (value) =>
-                          BlocProvider.of<RegisterBloc>(context)
-                              .add(OnEmailChanged(value)),
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(13),
-                          child: SvgPicture.asset(
-                            AppIcons.envelopeOpen,
-                            height: 16,
-                            width: 16,
-                          ),
-                        ),
-                        error: state.emailError.isNotEmpty
-                            ? ErrorTextField(text: state.emailError)
-                            : null,
-                      ),
-                    ),
-                    const VerticalSpacer(height: 16),
-                    TextField(
-                      controller: _passwordController,
-                      obscureText: _obscurePassword,
-                      onChanged: (value) =>
-                          BlocProvider.of<RegisterBloc>(context)
-                              .add(OnPasswordChanged(value)),
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(13),
-                          child: SvgPicture.asset(
-                            AppIcons.password,
-                            height: 16,
-                            width: 16,
-                          ),
-                        ),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.all(13),
-                          child: GestureDetector(
-                            onTap: () => setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            }),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (_, __) {
+        context.go(AppRoutes.home);
+      },
+      child: BlocProvider(
+        create: (context) => RegisterBloc(),
+        child: BlocConsumer<RegisterBloc, RegisterState>(
+          listener: (context, state) {
+            if (state is SuccessState) {
+              context.go(AppRoutes.home);
+            }
+          },
+          builder: (context, state) {
+            return Scaffold(
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _registerImage(),
+                      const VerticalSpacer(height: 16),
+                      _titleText(),
+                      const VerticalSpacer(height: 2),
+                      _subtitleText(),
+                      const VerticalSpacer(height: 16),
+                      _message(),
+                      TextField(
+                        controller: _nameController,
+                        onChanged: (value) =>
+                            BlocProvider.of<RegisterBloc>(context)
+                                .add(OnNameChanged(value)),
+                        decoration: InputDecoration(
+                          labelText: 'Nama',
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(13),
                             child: SvgPicture.asset(
-                              AppIcons.eye,
+                              AppIcons.user,
                               height: 16,
                               width: 16,
                             ),
                           ),
+                          error: state.nameError.isNotEmpty
+                              ? ErrorTextField(text: state.nameError)
+                              : null,
                         ),
-                        error: state.passwordError.isNotEmpty
-                            ? ErrorTextField(text: state.passwordError)
-                            : null,
                       ),
-                    ),
-                    const VerticalSpacer(height: 16),
-                    TextField(
-                      controller: _passwordConfirmController,
-                      obscureText: _obscureConfirmPassword,
-                      onChanged: (value) =>
-                          BlocProvider.of<RegisterBloc>(context).add(
-                              OnPasswordConfirmChanged(
-                                  _passwordController.text, value)),
-                      decoration: InputDecoration(
-                        labelText: 'Konfiramsi Password',
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(13),
-                          child: SvgPicture.asset(
-                            AppIcons.password,
-                            height: 16,
-                            width: 16,
-                          ),
-                        ),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.all(13),
-                          child: GestureDetector(
-                            onTap: () => setState(() {
-                              _obscureConfirmPassword =
-                                  !_obscureConfirmPassword;
-                            }),
+                      const VerticalSpacer(height: 16),
+                      TextField(
+                        controller: _emailController,
+                        onChanged: (value) =>
+                            BlocProvider.of<RegisterBloc>(context)
+                                .add(OnEmailChanged(value)),
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(13),
                             child: SvgPicture.asset(
-                              AppIcons.eye,
+                              AppIcons.envelopeOpen,
                               height: 16,
                               width: 16,
                             ),
                           ),
+                          error: state.emailError.isNotEmpty
+                              ? ErrorTextField(text: state.emailError)
+                              : null,
                         ),
-                        error: state.passwordConfirmError.isNotEmpty
-                            ? ErrorTextField(text: state.passwordConfirmError)
-                            : null,
                       ),
-                    ),
-                    const VerticalSpacer(height: 16),
-                    _registerButton(),
-                    const VerticalSpacer(height: 12),
-                    _loginText(),
-                  ],
+                      const VerticalSpacer(height: 16),
+                      TextField(
+                        controller: _passwordController,
+                        obscureText: _obscurePassword,
+                        onChanged: (value) =>
+                            BlocProvider.of<RegisterBloc>(context)
+                                .add(OnPasswordChanged(value)),
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(13),
+                            child: SvgPicture.asset(
+                              AppIcons.password,
+                              height: 16,
+                              width: 16,
+                            ),
+                          ),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(13),
+                            child: GestureDetector(
+                              onTap: () => setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              }),
+                              child: SvgPicture.asset(
+                                AppIcons.eye,
+                                height: 16,
+                                width: 16,
+                              ),
+                            ),
+                          ),
+                          error: state.passwordError.isNotEmpty
+                              ? ErrorTextField(text: state.passwordError)
+                              : null,
+                        ),
+                      ),
+                      const VerticalSpacer(height: 16),
+                      TextField(
+                        controller: _passwordConfirmController,
+                        obscureText: _obscureConfirmPassword,
+                        onChanged: (value) =>
+                            BlocProvider.of<RegisterBloc>(context).add(
+                                OnPasswordConfirmChanged(
+                                    _passwordController.text, value)),
+                        decoration: InputDecoration(
+                          labelText: 'Konfiramsi Password',
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(13),
+                            child: SvgPicture.asset(
+                              AppIcons.password,
+                              height: 16,
+                              width: 16,
+                            ),
+                          ),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(13),
+                            child: GestureDetector(
+                              onTap: () => setState(() {
+                                _obscureConfirmPassword =
+                                    !_obscureConfirmPassword;
+                              }),
+                              child: SvgPicture.asset(
+                                AppIcons.eye,
+                                height: 16,
+                                width: 16,
+                              ),
+                            ),
+                          ),
+                          error: state.passwordConfirmError.isNotEmpty
+                              ? ErrorTextField(text: state.passwordConfirmError)
+                              : null,
+                        ),
+                      ),
+                      const VerticalSpacer(height: 16),
+                      _registerButton(),
+                      const VerticalSpacer(height: 12),
+                      _loginText(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

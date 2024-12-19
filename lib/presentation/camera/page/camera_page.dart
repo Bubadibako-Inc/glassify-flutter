@@ -16,65 +16,71 @@ class CameraPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CameraBloc()..add(OnCameraSetup()),
-      child: BlocListener<CameraBloc, CameraState>(
-        listener: (_, state) {
-          if (state is CameraSuccessState) {
-            context.push(AppRoutes.cameraResult, extra: state.picture);
-          }
-        },
-        child: Scaffold(
-          backgroundColor: AppColors.black,
-          body: SafeArea(
-            child: Stack(
-              children: <Widget>[
-                BlocBuilder<CameraBloc, CameraState>(
-                  builder: (context, state) {
-                    if (state is CameraInitializedState) {
-                      bool isFrontCamera =
-                          state.cameraController.description.lensDirection ==
-                              CameraLensDirection.front;
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (_, __) {
+        context.go(AppRoutes.home);
+      },
+      child: BlocProvider(
+        create: (context) => CameraBloc()..add(OnCameraSetup()),
+        child: BlocListener<CameraBloc, CameraState>(
+          listener: (_, state) {
+            if (state is CameraSuccessState) {
+              context.push(AppRoutes.cameraResult, extra: state.picture);
+            }
+          },
+          child: Scaffold(
+            backgroundColor: AppColors.black,
+            body: SafeArea(
+              child: Stack(
+                children: <Widget>[
+                  BlocBuilder<CameraBloc, CameraState>(
+                    builder: (context, state) {
+                      if (state is CameraInitializedState) {
+                        bool isFrontCamera =
+                            state.cameraController.description.lensDirection ==
+                                CameraLensDirection.front;
 
-                      return SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        child: FittedBox(
-                          fit: BoxFit
-                              .cover, // or BoxFit.contain, BoxFit.fill depending on your needs
-                          child: SizedBox(
-                            width: 100,
-                            child: Transform(
-                              alignment: Alignment.center,
-                              transform: isFrontCamera
-                                  ? Matrix4.rotationY(math.pi)
-                                  : Matrix4
-                                      .identity(), // Flip horizontally if front camera
-                              child: CameraPreview(state.cameraController),
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          child: FittedBox(
+                            fit: BoxFit
+                                .cover, // or BoxFit.contain, BoxFit.fill depending on your needs
+                            child: SizedBox(
+                              width: 100,
+                              child: Transform(
+                                alignment: Alignment.center,
+                                transform: isFrontCamera
+                                    ? Matrix4.rotationY(math.pi)
+                                    : Matrix4
+                                        .identity(), // Flip horizontally if front camera
+                                child: CameraPreview(state.cameraController),
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }
+                        );
+                      }
 
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      color: AppColors.black,
-                    );
-                  },
-                ),
-                BlocBuilder<CameraBloc, CameraState>(
-                  builder: (context, state) {
-                    return _topOverlay(context);
-                  },
-                ),
-                BlocBuilder<CameraBloc, CameraState>(
-                  builder: (context, state) {
-                    return _bottomOverlay(context);
-                  },
-                )
-              ],
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        color: AppColors.black,
+                      );
+                    },
+                  ),
+                  BlocBuilder<CameraBloc, CameraState>(
+                    builder: (context, state) {
+                      return _topOverlay(context);
+                    },
+                  ),
+                  BlocBuilder<CameraBloc, CameraState>(
+                    builder: (context, state) {
+                      return _bottomOverlay(context);
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -289,7 +295,7 @@ class CameraPage extends StatelessWidget {
         ),
         child: InkWell(
           customBorder: const CircleBorder(),
-          onTap: () => context.pop(),
+          onTap: () => context.go(AppRoutes.home),
           hoverColor: AppColors.neutral200.withOpacity(0.2),
           splashColor: AppColors.neutral200.withOpacity(0.2),
           child: Container(

@@ -43,7 +43,7 @@ class MenuPage extends StatelessWidget {
                 listener: (context, state) {
                   if (state is SuccessState) {
                     context.pop();
-                    context.pop();
+                    context.go(AppRoutes.home);
                   }
                 },
                 child: Column(
@@ -192,154 +192,154 @@ class MenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(96),
-        child: MenuAppbar(),
-      ),
-      body: BlocProvider(
-        create: (context) => AuthBloc()..add(GetToken()),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.only(bottom: 24),
-            child: BlocBuilder<AuthBloc, AuthState>(
-              builder: (context, state) {
-                if (state is AuthenticatedState) {
-                  final List<Map<String, dynamic>> _menuItems = [
-                    {
-                      'name': 'Wishlist',
-                      'icon': AppIcons.heart,
-                      'color': AppColors.black,
-                      'route': AppRoutes.wishlist,
-                    },
-                    {
-                      'name': 'Daftar Transaksi',
-                      'icon': AppIcons.receipt,
-                      'color': AppColors.black,
-                      'route': AppRoutes.transaction,
-                    },
-                    {
-                      'name': 'Daftar Ulasan',
-                      'icon': AppIcons.star,
-                      'color': AppColors.black,
-                      'route': AppRoutes.review,
-                    },
-                    {
-                      'name': 'Tentang Aplikasi',
-                      'icon': AppIcons.warningCircle,
-                      'color': AppColors.black,
-                      'route': AppRoutes.about,
-                    },
-                  ];
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (_, __) {
+        context.go(AppRoutes.home);
+      },
+      child: Scaffold(
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(96),
+          child: MenuAppbar(),
+        ),
+        body: BlocProvider(
+          create: (context) => AuthBloc()..add(GetToken()),
+          child: SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.only(bottom: 24),
+              child: BlocBuilder<AuthBloc, AuthState>(
+                builder: (context, state) {
+                  if (state is AuthenticatedState) {
+                    final List<Map<String, dynamic>> _menuItems = [
+                      {
+                        'name': 'Wishlist',
+                        'icon': AppIcons.heart,
+                        'color': AppColors.black,
+                        'route': AppRoutes.wishlist,
+                      },
+                      {
+                        'name': 'Daftar Transaksi',
+                        'icon': AppIcons.receipt,
+                        'color': AppColors.black,
+                        'route': AppRoutes.transaction,
+                      },
+                      {
+                        'name': 'Tentang Aplikasi',
+                        'icon': AppIcons.warningCircle,
+                        'color': AppColors.black,
+                        'route': AppRoutes.about,
+                      },
+                    ];
 
-                  return Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      ProfileTile(
-                        name: state.name,
-                        email: state.email,
-                        avatar: state.role,
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: List.generate(
-                          _menuItems.length,
-                          (index) {
-                            return MenuTile(
-                              title: _menuItems[index]['name'],
-                              icon: _menuItems[index]['icon'],
-                              color: _menuItems[index]['color'],
-                              route: _menuItems[index]['route'],
-                            );
-                          },
+                    return Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        ProfileTile(
+                          name: state.name,
+                          email: state.email,
+                          photoProfile: state.photoProfile,
                         ),
-                      ),
-                      InkWell(
-                        onTap: () => _showLogoutDialog(context),
-                        splashColor: AppColors.neutral600.withOpacity(0.1),
-                        hoverColor: AppColors.neutral600.withOpacity(0.1),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 24.0,
-                            vertical: 12.0,
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              SvgPicture.asset(
-                                AppIcons.signOut,
-                                width: 24,
-                                height: 24,
-                                alignment: Alignment.center,
-                                colorFilter: const ColorFilter.mode(
-                                  AppColors.red600,
-                                  BlendMode.srcIn,
-                                ),
-                              ),
-                              const HorizontalSpacer(width: 16),
-                              const Text(
-                                'Logout',
-                                style: TextStyle(
-                                  color: AppColors.red600,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: List.generate(
+                            _menuItems.length,
+                            (index) {
+                              return MenuTile(
+                                title: _menuItems[index]['name'],
+                                icon: _menuItems[index]['icon'],
+                                color: _menuItems[index]['color'],
+                                route: _menuItems[index]['route'],
+                              );
+                            },
                           ),
                         ),
-                      ),
-                    ],
-                  );
-                }
-
-                if (state is UnauthenticatedState) {
-                  final List<Map<String, dynamic>> _menuItems = [
-                    {
-                      'name': 'Pengaturan',
-                      'icon': AppIcons.gear,
-                      'color': AppColors.black,
-                      'route': AppRoutes.about,
-                    },
-                  ];
-
-                  return Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      const VerticalSpacer(height: 24),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: List.generate(
-                          _menuItems.length,
-                          (index) {
-                            return MenuTile(
-                              title: _menuItems[index]['name'],
-                              icon: _menuItems[index]['icon'],
-                              color: _menuItems[index]['color'],
-                              route: _menuItems[index]['route'],
-                            );
-                          },
+                        InkWell(
+                          onTap: () => _showLogoutDialog(context),
+                          splashColor: AppColors.neutral600.withOpacity(0.1),
+                          hoverColor: AppColors.neutral600.withOpacity(0.1),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24.0,
+                              vertical: 12.0,
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                SvgPicture.asset(
+                                  AppIcons.signOut,
+                                  width: 24,
+                                  height: 24,
+                                  alignment: Alignment.center,
+                                  colorFilter: const ColorFilter.mode(
+                                    AppColors.red600,
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                                const HorizontalSpacer(width: 16),
+                                const Text(
+                                  'Logout',
+                                  style: TextStyle(
+                                    color: AppColors.red600,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                      const VerticalSpacer(height: 4),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 24.0),
-                        child: Divider(
-                          thickness: 2,
-                          color: AppColors.neutral300,
-                        ),
-                      ),
-                      const VerticalSpacer(height: 8),
-                      const LoginButton(),
-                      const VerticalSpacer(height: 12),
-                      const RegisterButton(),
-                    ],
-                  );
-                }
+                      ],
+                    );
+                  }
 
-                return const SizedBox.shrink();
-              },
+                  if (state is UnauthenticatedState) {
+                    final List<Map<String, dynamic>> _menuItems = [
+                      {
+                        'name': 'Tentang Aplikasi',
+                        'icon': AppIcons.warningCircle,
+                        'color': AppColors.black,
+                        'route': AppRoutes.about,
+                      },
+                    ];
+
+                    return Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const VerticalSpacer(height: 24),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: List.generate(
+                            _menuItems.length,
+                            (index) {
+                              return MenuTile(
+                                title: _menuItems[index]['name'],
+                                icon: _menuItems[index]['icon'],
+                                color: _menuItems[index]['color'],
+                                route: _menuItems[index]['route'],
+                              );
+                            },
+                          ),
+                        ),
+                        const VerticalSpacer(height: 4),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24.0),
+                          child: Divider(
+                            thickness: 2,
+                            color: AppColors.neutral300,
+                          ),
+                        ),
+                        const VerticalSpacer(height: 8),
+                        const LoginButton(),
+                        const VerticalSpacer(height: 12),
+                        const RegisterButton(),
+                      ],
+                    );
+                  }
+
+                  return const SizedBox.shrink();
+                },
+              ),
             ),
           ),
         ),

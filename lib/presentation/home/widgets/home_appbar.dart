@@ -57,35 +57,7 @@ class HomeAppbar extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: InkWell(
-                  onTap: () => context.push(AppRoutes.cart),
-                  customBorder: const CircleBorder(),
-                  hoverColor: AppColors.black.withOpacity(0.2),
-                  splashColor: AppColors.black.withOpacity(0.2),
-                  child: Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: SvgPicture.asset(
-                      AppIcons.shoppingCart,
-                      width: 24,
-                      height: 24,
-                      colorFilter: const ColorFilter.mode(
-                        AppColors.black,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const HorizontalSpacer(width: 16),
-            Material(
-              color: AppColors.transparent,
-              shape: const CircleBorder(),
-              child: Ink(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: InkWell(
-                  onTap: () => context.push(AppRoutes.menu),
+                  onTap: () => context.go(AppRoutes.menu),
                   customBorder: const CircleBorder(),
                   hoverColor: AppColors.black.withOpacity(0.2),
                   splashColor: AppColors.black.withOpacity(0.2),

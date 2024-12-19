@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../common/widgets/horizontal_spacer.dart';
 import '../../../core/configs/assets/app_icons.dart';
+import '../../../core/configs/routes/app_routes.dart';
 import '../../../core/configs/theme/app_colors.dart';
 
 class MenuAppbar extends StatelessWidget {
@@ -47,7 +48,7 @@ class MenuAppbar extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: InkWell(
-                  onTap: () => context.pop(),
+                  onTap: () => context.go(AppRoutes.home),
                   customBorder: const CircleBorder(),
                   hoverColor: AppColors.black.withOpacity(0.2),
                   splashColor: AppColors.black.withOpacity(0.2),

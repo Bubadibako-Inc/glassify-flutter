@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:glassify_flutter/core/configs/assets/app_images.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/configs/routes/app_routes.dart';
@@ -23,9 +25,12 @@ class SplashPage extends StatelessWidget {
                 context.go(AppRoutes.home);
               }
             },
-            child: const Center(
-              // TODO: Change with app logo
-              child: Text('Splash Page'),
+            child: Center(
+              child: SvgPicture.asset(
+                AppImages.logo,
+                width: 64,
+                height: 64,
+              ),
             ),
           ),
         ),

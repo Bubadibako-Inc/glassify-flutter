@@ -22,6 +22,7 @@ class SelfiePage extends StatelessWidget {
         builder: (context, state) {
           if (state is PredictedState) {
             return RefreshIndicator(
+              color: AppColors.black,
               onRefresh: () async => BlocProvider.of<SelfieBloc>(context).add(
                 GetPrediction(),
               ),
@@ -56,7 +57,12 @@ class SelfiePage extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          const VerticalSpacer(height: 8),
+                          const VerticalSpacer(height: 12),
+                          SvgPicture.asset(
+                            state.shapeImage,
+                            width: 72,
+                          ),
+                          const VerticalSpacer(height: 12),
                           Text(
                             state.prediction,
                             style: const TextStyle(
@@ -73,7 +79,7 @@ class SelfiePage extends StatelessWidget {
                                 color: AppColors.black,
                               ),
                               child: InkWell(
-                                onTap: () => context.push(AppRoutes.camera),
+                                onTap: () => context.go(AppRoutes.camera),
                                 splashColor:
                                     AppColors.neutral200.withOpacity(0.2),
                                 hoverColor:

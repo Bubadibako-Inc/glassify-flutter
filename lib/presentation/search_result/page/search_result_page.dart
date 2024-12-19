@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,6 +8,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../common/widgets/horizontal_spacer.dart';
 import '../../../common/widgets/vertical_spacer.dart';
 import '../../../core/configs/assets/app_icons.dart';
+import '../../../core/configs/assets/app_images.dart';
 import '../../../core/configs/routes/app_routes.dart';
 import '../../../core/configs/theme/app_colors.dart';
 import '../../search/bloc/product_history_bloc.dart';
@@ -156,34 +158,6 @@ class _SearchResultPageState extends State<SearchResultPage> {
                       );
                     }),
                   ),
-                  HorizontalSpacer(width: 16),
-                  Material(
-                    color: AppColors.transparent,
-                    shape: const CircleBorder(),
-                    child: Ink(
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: InkWell(
-                        onTap: () => context.push(AppRoutes.cart),
-                        customBorder: const CircleBorder(),
-                        hoverColor: AppColors.black.withOpacity(0.2),
-                        splashColor: AppColors.black.withOpacity(0.2),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: SvgPicture.asset(
-                            AppIcons.shoppingCart,
-                            width: 24,
-                            height: 24,
-                            colorFilter: const ColorFilter.mode(
-                              AppColors.black,
-                              BlendMode.srcIn,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -194,92 +168,21 @@ class _SearchResultPageState extends State<SearchResultPage> {
             builder: (context, state) {
               if (state is SearchResultSuccessState) {
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 24.0,
                         vertical: 16,
                       ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              '//${state.products.length} produk ditemukan',
-                              style: TextStyle(
-                                color: AppColors.black,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                              ),
-                              textAlign: TextAlign.justify,
-                            ),
-                          ),
-                          HorizontalSpacer(width: 16),
-                          Row(
-                            children: [
-                              Material(
-                                color: AppColors.transparent,
-                                borderRadius: BorderRadius.circular(4),
-                                child: Ink(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                      border: Border.all(
-                                          color: AppColors.black, width: 0.1)),
-                                  child: InkWell(
-                                    onTap: () {},
-                                    borderRadius: BorderRadius.circular(4),
-                                    hoverColor:
-                                        AppColors.black.withOpacity(0.2),
-                                    splashColor:
-                                        AppColors.black.withOpacity(0.2),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: SvgPicture.asset(
-                                        AppIcons.sort,
-                                        width: 24,
-                                        height: 24,
-                                        colorFilter: const ColorFilter.mode(
-                                          AppColors.neutral600,
-                                          BlendMode.srcIn,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              HorizontalSpacer(width: 8),
-                              Material(
-                                color: AppColors.transparent,
-                                borderRadius: BorderRadius.circular(4),
-                                child: Ink(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                      border: Border.all(
-                                          color: AppColors.black, width: 0.1)),
-                                  child: InkWell(
-                                    onTap: () {},
-                                    borderRadius: BorderRadius.circular(4),
-                                    hoverColor:
-                                        AppColors.black.withOpacity(0.2),
-                                    splashColor:
-                                        AppColors.black.withOpacity(0.2),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: SvgPicture.asset(
-                                        AppIcons.filter,
-                                        width: 24,
-                                        height: 24,
-                                        colorFilter: const ColorFilter.mode(
-                                          AppColors.neutral600,
-                                          BlendMode.srcIn,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                      child: Text(
+                        '${state.products.length} produk ditemukan',
+                        style: TextStyle(
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.justify,
                       ),
                     ),
                     Expanded(
@@ -317,12 +220,18 @@ class _SearchResultPageState extends State<SearchResultPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                      height: 208,
-                                      width: double.infinity,
-                                      child: Image.network(
-                                        'https://images.pexels.com/photos/27603433/pexels-photo-27603433/free-photo-of-mode-fashion-fesyen-wanita.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                                        fit: BoxFit.cover,
-                                      )),
+                                    height: 208,
+                                    width: double.infinity,
+                                    child: CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl:
+                                          state.products[index].images.first,
+                                      placeholder: (_, __) {
+                                        return SvgPicture.asset(
+                                            AppImages.imagePlaceholder);
+                                      },
+                                    ),
+                                  ),
                                   Container(
                                     padding: const EdgeInsets.all(12),
                                     child: Column(

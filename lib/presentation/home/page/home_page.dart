@@ -132,6 +132,7 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const VerticalSpacer(height: 16),
           HomeCarousel(
             pageController: _pageController,
             images: _carouselImages,

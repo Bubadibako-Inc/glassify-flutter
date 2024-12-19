@@ -17,5 +17,10 @@ class AppImages {
   static const String ovoLogo = '${_basePath}ovo_logo.svg';
   static const String circleSuccess = '${_basePath}circle_success.svg';
   static const String circleFailed = '${_basePath}circle_failed.svg';
-  static const String customerService = '${_basePath}customer_service.svg';
+  static const String square = '${_basePath}square.svg';
+  static const String round = '${_basePath}round.svg';
+  static const String oval = '${_basePath}oval.svg';
+  static const String oblong = '${_basePath}oblong.svg';
+  static const String heart = '${_basePath}heart.svg';
+  static const String logo = '${_basePath}logo.svg';
 }

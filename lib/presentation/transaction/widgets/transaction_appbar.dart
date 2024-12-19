@@ -86,7 +86,7 @@ class TransactionAppbar extends StatelessWidget {
                         shape: BoxShape.circle,
                       ),
                       child: InkWell(
-                        onTap: () => context.push(AppRoutes.menu),
+                        onTap: () => context.go(AppRoutes.menu),
                         customBorder: const CircleBorder(),
                         hoverColor: AppColors.black.withOpacity(0.2),
                         splashColor: AppColors.black.withOpacity(0.2),

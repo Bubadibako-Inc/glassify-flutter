@@ -58,7 +58,7 @@ class UnauthenticatedPage extends StatelessWidget {
                     child: InkWell(
                       splashColor: AppColors.black.withOpacity(0.2),
                       hoverColor: AppColors.black.withOpacity(0.2),
-                      onTap: () => context.push(AppRoutes.login),
+                      onTap: () => context.go(AppRoutes.login),
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
@@ -90,7 +90,7 @@ class UnauthenticatedPage extends StatelessWidget {
                     child: InkWell(
                       splashColor: AppColors.neutral300.withOpacity(0.2),
                       hoverColor: AppColors.neutral300.withOpacity(0.2),
-                      onTap: () => context.push(AppRoutes.register),
+                      onTap: () => context.go(AppRoutes.register),
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,

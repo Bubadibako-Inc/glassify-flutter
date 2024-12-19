@@ -1,6 +1,5 @@
 class AppRoutes {
   static const String cart = '/cart';
-  static const String customerService = '/customer-service';
   static const String product = '/product';
   static const String detailTransaction = '/detail-transaction';
   static const String home = '/home';

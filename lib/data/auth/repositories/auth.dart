@@ -22,7 +22,7 @@ class AuthRepositoryImpl extends AuthRepository {
         sharedPref.setString('token', data['access_token']);
         sharedPref.setString('name', data['user']['name']);
         sharedPref.setString('email', data['user']['email']);
-        sharedPref.setString('role', data['user']['role']);
+        sharedPref.setString('photo_profile', data['user']['photo_profile']);
         return Right(data);
       },
     );
@@ -41,7 +41,7 @@ class AuthRepositoryImpl extends AuthRepository {
         sharedPref.setString('token', data['access_token']);
         sharedPref.setString('name', data['user']['name']);
         sharedPref.setString('email', data['user']['email']);
-        sharedPref.setString('role', data['user']['role']);
+        sharedPref.setString('photo_profile', data['user']['photo_profile']);
         return Right(data);
       },
     );
@@ -58,6 +58,9 @@ class AuthRepositoryImpl extends AuthRepository {
         final SharedPreferences sharedPref =
             await SharedPreferences.getInstance();
         sharedPref.remove('token');
+        sharedPref.remove('name');
+        sharedPref.remove('email');
+        sharedPref.remove('photo_profile');
         return Right(data);
       },
     );
