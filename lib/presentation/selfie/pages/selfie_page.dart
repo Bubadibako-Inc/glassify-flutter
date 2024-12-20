@@ -219,7 +219,7 @@ class SelfiePage extends StatelessWidget {
               color: AppColors.black,
             ),
             child: InkWell(
-              onTap: () => context.push(AppRoutes.camera),
+              onTap: () => context.go(AppRoutes.camera),
               splashColor: AppColors.neutral200.withOpacity(0.2),
               hoverColor: AppColors.neutral200.withOpacity(0.2),
               child: Container(
