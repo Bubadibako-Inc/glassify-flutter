@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../../../common/widgets/horizontal_spacer.dart';
 import '../../../common/widgets/vertical_spacer.dart';
 import '../../../core/configs/assets/app_icons.dart';
-import '../../../core/configs/routes/app_routes.dart';
 import '../../../core/configs/theme/app_colors.dart';
 
 class ProductReviewPage extends StatefulWidget {
@@ -60,7 +59,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                   splashColor: AppColors.black.withOpacity(0.2),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 24,
                       vertical: 12,
                     ),
@@ -72,12 +71,12 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                               : AppIcons.checkSquare,
                           height: 24,
                           width: 24,
-                          colorFilter: ColorFilter.mode(
+                          colorFilter: const ColorFilter.mode(
                             AppColors.black,
                             BlendMode.srcIn,
                           ),
                         ),
-                        HorizontalSpacer(width: 16),
+                        const HorizontalSpacer(width: 16),
                         _buildTitle(index + 1),
                       ],
                     ),
@@ -110,10 +109,10 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
       useSafeArea: true,
       builder: (context) {
         return Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: AppColors.white,
           ),
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             vertical: 16,
           ),
           width: MediaQuery.of(context).size.width,
@@ -126,7 +125,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'Filter',
                       style: TextStyle(
                         color: AppColors.black,
@@ -136,23 +135,23 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                     ),
                     Material(
                       color: AppColors.transparent,
-                      shape: CircleBorder(),
+                      shape: const CircleBorder(),
                       child: Ink(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                         ),
                         child: InkWell(
                           onTap: () => context.pop(),
-                          customBorder: CircleBorder(),
+                          customBorder: const CircleBorder(),
                           hoverColor: AppColors.black.withOpacity(0.2),
                           splashColor: AppColors.black.withOpacity(0.2),
                           child: Padding(
-                            padding: EdgeInsets.all(4),
+                            padding: const EdgeInsets.all(4),
                             child: SvgPicture.asset(
                               AppIcons.x,
                               width: 24,
                               height: 24,
-                              colorFilter: ColorFilter.mode(
+                              colorFilter: const ColorFilter.mode(
                                 AppColors.black,
                                 BlendMode.srcIn,
                               ),
@@ -164,15 +163,15 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                   ],
                 ),
               ),
-              VerticalSpacer(height: 4),
-              Padding(
+              const VerticalSpacer(height: 4),
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Divider(
                   color: AppColors.neutral400,
                   thickness: 1,
                 ),
               ),
-              VerticalSpacer(height: 8),
+              const VerticalSpacer(height: 8),
               Expanded(
                 child: _buildCheckboxList(
                   context,
@@ -180,7 +179,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                   values,
                 ),
               ),
-              VerticalSpacer(height: 12),
+              const VerticalSpacer(height: 12),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Material(
@@ -215,11 +214,11 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                       splashColor: AppColors.white.withOpacity(0.2),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 24,
                           vertical: 12,
                         ),
-                        child: Text(
+                        child: const Text(
                           'Terapkan Filter',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -249,10 +248,10 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
       useSafeArea: true,
       builder: (context) {
         return Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: AppColors.white,
           ),
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             vertical: 16,
           ),
           width: MediaQuery.of(context).size.width,
@@ -265,7 +264,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'Filter',
                       style: TextStyle(
                         color: AppColors.black,
@@ -275,23 +274,23 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                     ),
                     Material(
                       color: AppColors.transparent,
-                      shape: CircleBorder(),
+                      shape: const CircleBorder(),
                       child: Ink(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                         ),
                         child: InkWell(
                           onTap: () => context.pop(),
-                          customBorder: CircleBorder(),
+                          customBorder: const CircleBorder(),
                           hoverColor: AppColors.black.withOpacity(0.2),
                           splashColor: AppColors.black.withOpacity(0.2),
                           child: Padding(
-                            padding: EdgeInsets.all(4),
+                            padding: const EdgeInsets.all(4),
                             child: SvgPicture.asset(
                               AppIcons.x,
                               width: 24,
                               height: 24,
-                              colorFilter: ColorFilter.mode(
+                              colorFilter: const ColorFilter.mode(
                                 AppColors.black,
                                 BlendMode.srcIn,
                               ),
@@ -303,15 +302,15 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                   ],
                 ),
               ),
-              VerticalSpacer(height: 4),
-              Padding(
+              const VerticalSpacer(height: 4),
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Divider(
                   color: AppColors.neutral400,
                   thickness: 1,
                 ),
               ),
-              VerticalSpacer(height: 8),
+              const VerticalSpacer(height: 8),
               Expanded(
                 child: _buildCheckboxList(
                   context,
@@ -319,7 +318,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                   checkedStates,
                 ),
               ),
-              VerticalSpacer(height: 12),
+              const VerticalSpacer(height: 12),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Material(
@@ -338,8 +337,6 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                             selectedValues.add(options[i]);
                           }
                         }
-                        // Handle selected values here
-                        print(selectedValues); // For demonstration
                         context.pop();
                       },
                       borderRadius: BorderRadius.circular(4),
@@ -347,14 +344,14 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                       splashColor: AppColors.white.withOpacity(0.2),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 24,
                           vertical: 12,
                         ),
-                        child: Text(
+                        child: const Text(
                           'Terapkan Pengurutan',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
@@ -380,14 +377,14 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(96),
+        preferredSize: const Size.fromHeight(96),
         child: SafeArea(
           child: Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 24,
               vertical: 16,
             ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.white,
               border: Border(
                 bottom: BorderSide(
@@ -401,23 +398,23 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
               children: [
                 Material(
                   color: AppColors.transparent,
-                  shape: CircleBorder(),
+                  shape: const CircleBorder(),
                   child: Ink(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                     ),
                     child: InkWell(
                       onTap: () => context.pop(),
-                      customBorder: CircleBorder(),
+                      customBorder: const CircleBorder(),
                       hoverColor: AppColors.black.withOpacity(0.2),
                       splashColor: AppColors.black.withOpacity(0.2),
                       child: Padding(
-                        padding: EdgeInsets.all(4),
+                        padding: const EdgeInsets.all(4),
                         child: SvgPicture.asset(
                           AppIcons.arrowLeft,
                           width: 24,
                           height: 24,
-                          colorFilter: ColorFilter.mode(
+                          colorFilter: const ColorFilter.mode(
                             AppColors.black,
                             BlendMode.srcIn,
                           ),
@@ -426,8 +423,8 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                     ),
                   ),
                 ),
-                HorizontalSpacer(width: 16),
-                Text(
+                const HorizontalSpacer(width: 16),
+                const Text(
                   'Daftar Review',
                   style: TextStyle(
                     color: AppColors.black,
@@ -450,7 +447,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
               ),
               child: Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Text(
                       '123 review ditemukan',
                       style: TextStyle(
@@ -461,7 +458,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                       textAlign: TextAlign.justify,
                     ),
                   ),
-                  HorizontalSpacer(width: 16),
+                  const HorizontalSpacer(width: 16),
                   Row(
                     children: [
                       Material(
@@ -492,7 +489,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                           ),
                         ),
                       ),
-                      HorizontalSpacer(width: 8),
+                      const HorizontalSpacer(width: 8),
                       Material(
                         color: AppColors.transparent,
                         borderRadius: BorderRadius.circular(4),
@@ -541,11 +538,11 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
             ),
             Expanded(
               child: ListView.separated(
-                padding: EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 itemCount: 12,
                 itemBuilder: (_, index) {
                   return Container(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 16,
                     ),
@@ -560,11 +557,11 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        CircleAvatar(
+                        const CircleAvatar(
                           radius: 24,
                           backgroundColor: AppColors.black,
                         ),
-                        HorizontalSpacer(width: 16),
+                        const HorizontalSpacer(width: 16),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -574,7 +571,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                                 SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width - 240,
-                                  child: Text(
+                                  child: const Text(
                                     'Nama User User User User User User User User User',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -606,8 +603,8 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                                 ),
                               ],
                             ),
-                            VerticalSpacer(height: 4),
-                            Text(
+                            const VerticalSpacer(height: 4),
+                            const Text(
                               'Varian Abu-abu',
                               style: TextStyle(
                                 color: AppColors.neutral500,
@@ -615,10 +612,10 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                                 fontSize: 14,
                               ),
                             ),
-                            VerticalSpacer(height: 8),
+                            const VerticalSpacer(height: 8),
                             SizedBox(
                               width: MediaQuery.of(context).size.width - 152,
-                              child: Text(
+                              child: const Text(
                                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                                 style: TextStyle(
                                   color: AppColors.neutral500,
@@ -628,10 +625,10 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                                 textAlign: TextAlign.justify,
                               ),
                             ),
-                            VerticalSpacer(height: 12),
+                            const VerticalSpacer(height: 12),
                             SizedBox(
                               width: MediaQuery.of(context).size.width - 152,
-                              child: Text(
+                              child: const Text(
                                 '12 Novermber 2024',
                                 style: TextStyle(
                                   color: AppColors.neutral600,
@@ -648,7 +645,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
                   );
                 },
                 separatorBuilder: (_, __) {
-                  return VerticalSpacer(height: 12);
+                  return const VerticalSpacer(height: 12);
                 },
               ),
             ),

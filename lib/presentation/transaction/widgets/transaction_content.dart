@@ -2,21 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:glassify_flutter/presentation/transaction/bloc/transaction_product_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../common/bloc/auth_bloc.dart';
 import '../../../common/widgets/horizontal_spacer.dart';
 import '../../../common/widgets/vertical_spacer.dart';
-import '../../../core/configs/assets/app_icons.dart';
 import '../../../core/configs/assets/app_images.dart';
-import '../../../core/configs/routes/app_routes.dart';
 import '../../../core/configs/theme/app_colors.dart';
-
 import '../../unauthenticated/page/unauthenticated_page.dart';
 import '../bloc/transaction_bloc.dart';
-
+import '../bloc/transaction_product_bloc.dart';
 import 'empty_transaction.dart';
 
 class TransactionContent extends StatelessWidget {
@@ -276,6 +271,5 @@ class TransactionContent extends StatelessWidget {
         },
       ),
     );
-    ;
   }
 }

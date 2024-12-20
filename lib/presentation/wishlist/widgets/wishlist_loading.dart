@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../common/bloc/auth_bloc.dart';
 import '../../../common/widgets/vertical_spacer.dart';
 import '../../../core/configs/theme/app_colors.dart';
-import '../bloc/wishlist_bloc.dart';
 
 class WishlistLoading extends StatelessWidget {
   const WishlistLoading({
@@ -40,33 +37,27 @@ class WishlistLoading extends StatelessWidget {
           ),
           const VerticalSpacer(height: 16),
           Expanded(
-            child: RefreshIndicator(
-              onRefresh: () async {
-                BlocProvider.of<AuthBloc>(context).add(GetToken());
-                BlocProvider.of<WishlistBloc>(context).add(OnGetWishlist());
-              },
-              child: GridView.builder(
-                itemCount: 4,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 16,
-                ),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
-                  childAspectRatio: (1 / 1.96),
-                ),
-                itemBuilder: (context, index) => Shimmer.fromColors(
-                  baseColor: AppColors.neutral300,
-                  highlightColor: AppColors.neutral100,
-                  child: Container(
-                    width: 192,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: AppColors.white,
-                    ),
+            child: GridView.builder(
+              itemCount: 4,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24,
+                vertical: 16,
+              ),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: (1 / 1.96),
+              ),
+              itemBuilder: (context, index) => Shimmer.fromColors(
+                baseColor: AppColors.neutral300,
+                highlightColor: AppColors.neutral100,
+                child: Container(
+                  width: 192,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: AppColors.white,
                   ),
                 ),
               ),

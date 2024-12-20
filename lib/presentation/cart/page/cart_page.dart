@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../core/configs/assets/app_icons.dart';
-import '../../../core/configs/theme/app_colors.dart';
-import '../../../core/configs/routes/app_routes.dart';
 import '../../../common/bloc/auth_bloc.dart';
-import '../../../common/widgets/horizontal_spacer.dart';
 
 import '../../unauthenticated/page/unauthenticated_page.dart';
 
